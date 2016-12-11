@@ -33,7 +33,7 @@
     </style>
   </head>
   <body>
-    <div class="vertical-section-container centered">
+    <!--<div class="vertical-section-container centered">
       <h3>Basic slider-carousel demo</h3>
       <demo-snippet>
         <template>
@@ -75,6 +75,28 @@
           </slider-carousel>
         </template>
       </demo-snippet>
+    </div>-->
+    <div style="width: 800px">
+    <template is="dom-bind">
+      <slider-carousel>
+            <template is="dom-repeat" items="{{haa}}">
+              <div class="slide-carousel">{{item.name}}</div>
+            </template>
+          </slider-carousel>
+    </template>
     </div>
+    <script>
+      var app = document.querySelector('[is="dom-bind"]');
+      app.haa = [
+        {name: "hola"},
+        {name: "ya"},
+        {name: "fome"},
+        {name: "fome"},
+        {name: "fome"},
+        {name: "fome"},
+        {name: "fome"},
+        {name: "fome"}
+      ]
+    </script>
   </body>
 </html>

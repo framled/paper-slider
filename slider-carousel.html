@@ -51,7 +51,7 @@ Custom property | Description | Default
 			}
 
 			#content-wrapper ::content > .slide-carousel{
-				margin-right: 8px;
+				margin: 0 4px;
 				vertical-align: top;
 				cursor: pointer;
 				min-width: var(--slide-carousel-width);
@@ -97,7 +97,7 @@ Custom property | Description | Default
 		</style>
 		<div role="list">
 			<div id="content-wrapper">
-				<content select=".slide-carousel"></content>
+				<content id="content" select=".slide-carousel"></content>
 			</div>
 		</div>
 		<paper-fab id="leftButton" mini class="left" icon="chevron-left" on-tap="_slideLeft">
@@ -117,7 +117,8 @@ Custom property | Description | Default
 				'mouseenter': '_onMouseEnter',
 				'mouseleave': '_onMouseLeave',
 				'neon-animation-finish': '_onNeonAnimationFinish',
-				'position-x-changed': '_onSliderMove'
+				'position-x-changed': '_onSliderMove',
+				'dom-change':'_onChange'
 			},
 			/**
 			 * Fired when a mouse enter or leave.
@@ -199,19 +200,20 @@ Custom property | Description | Default
 
 			attached: function(){
 				this.async(function(){
-					var nodes = Polymer.dom(this.$['content-wrapper']).getEffectiveChildNodes();
+					var nodes = this.queryAllEffectiveChildren('.slide-carousel');
 					this._setSlideWidth(nodes[0].offsetWidth);
 					this._setLimit(((nodes.length * this.slideWidth) + (nodes.length * 8)) * -1);
-				}.bind(this));
 
-				this.animationConfig['slide-from-left'].timing.duration = this.duration;
-				this.animationConfig['slide-from-right'].timing.duration = this.duration;
+					this.animationConfig['slide-from-left'].timing.duration = this.duration;
+					this.animationConfig['slide-from-right'].timing.duration = this.duration;
 
-				if(this.controlsAlwaysVisible){
-					this.$.rightButton.style.visibility = 'visible';
-					this.$.rightButton.style.opacity = 1;
-				}
+					if(this.controlsAlwaysVisible){
+						this.$.rightButton.style.visibility = 'visible';
+						this.$.rightButton.style.opacity = 1;
+					}
+				}.bind(this),100);
 			},
+			
 			/*
 			 * toggle visibility of the controls. 
 			 */
