@@ -10,7 +10,7 @@
 <link rel="import" href="../paper-fab/paper-fab.html">
 
 <!--
-`paper-slider`
+`slider-carousel`
 
 ### Styling
 
@@ -18,13 +18,13 @@ The following custom properties and mixins are available for styling:
 
 Custom property | Description | Default
 ----------------|-------------|----------
-`--paper-slide-width` | The slide's width | `null`
-`--paper-slide-height` | The slide's height | `null`
+`--slide-carousel-width` | The slide's width | `null`
+`--slide-carousel-height` | The slide's height | `null`
 
 @demo demo/index.html 
 -->
 
-<dom-module id="paper-slider">
+<dom-module id="slider-carousel">
 	<template strip-whitespace>
 		<style>
 			:host {
@@ -50,17 +50,17 @@ Custom property | Description | Default
 				@apply(--layout-flex);
 			}
 
-			#content-wrapper ::content > .paper-slide{
+			#content-wrapper ::content > .slide-carousel{
 				margin-right: 8px;
 				vertical-align: top;
 				cursor: pointer;
-				min-width: var(--paper-slide-width);
-				min-height: var(--paper-slide-height);
+				min-width: var(--slide-carousel-width);
+				min-height: var(--slide-carousel-height);
 
 				@apply(--shadow-elevation-2dp);
 			}
 
-			#content-wrapper ::content > .paper-slide:hover{
+			#content-wrapper ::content > .slide-carousel:hover{
 				@apply(--shadow-elevation-4dp);
 			}
 
@@ -97,7 +97,7 @@ Custom property | Description | Default
 		</style>
 		<div role="list">
 			<div id="content-wrapper">
-				<content select=".paper-slide"></content>
+				<content select=".slide-carousel"></content>
 			</div>
 		</div>
 		<paper-fab id="leftButton" mini class="left" icon="chevron-left" on-tap="_slideLeft">
@@ -109,7 +109,7 @@ Custom property | Description | Default
 	<script>
 		Polymer({
 
-			is: 'paper-slider',
+			is: 'slider-carousel',
 
 			behaviors:[Polymer.NeonAnimationRunnerBehavior],
 

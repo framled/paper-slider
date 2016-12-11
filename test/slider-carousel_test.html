@@ -4,25 +4,25 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
 
-    <title>paper-slider test</title>
+    <title>slider-carousel test</title>
 
     <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
     <script src="../../web-component-tester/browser.js"></script>
 
-    <link rel="import" href="../paper-slider.html">
+    <link rel="import" href="../slider-carousel.html">
   </head>
   <body>
     <test-fixture id="basic">
       <template>
-        <paper-slider></paper-slider>
+        <slider-carousel></slider-carousel>
       </template>
     </test-fixture>
 
     <script>
-      suite('paper-slider', function() {
+      suite('slider-carousel', function() {
         test('instantiating the element works', function() {
           var element = fixture('basic');
-          assert.equal(element.is, 'paper-slider');
+          assert.equal(element.is, 'slider-carousel');
         });
       });
     </script>
