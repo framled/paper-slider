@@ -1,0 +1,285 @@
+<link rel="import" href="../polymer/polymer.html">
+
+<link rel="import" href="../neon-animation/animations/transform-animation.html">
+<link rel="import" href="../neon-animation/neon-animation-runner-behavior.html">
+
+<link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../iron-icons/iron-icons.html">
+
+<link rel="import" href="../paper-styles/paper-styles.html">
+<link rel="import" href="../paper-fab/paper-fab.html">
+
+<!--
+`paper-slider`
+
+### Styling
+
+The following custom properties and mixins are available for styling:
+
+Custom property | Description | Default
+----------------|-------------|----------
+`--paper-slide-width` | The slide's width | `null`
+`--paper-slide-height` | The slide's height | `null`
+
+@demo demo/index.html 
+-->
+
+<dom-module id="paper-slider">
+	<template strip-whitespace>
+		<style>
+			:host {
+				display: block;
+				position: relative;
+				box-sizing: content-box;
+			}
+
+			[role="list"]{
+				overflow: hidden;
+				padding: 6px 0;
+				position: relative;
+				-moz-user-select: none;
+				-webkit-user-select: none;
+				-ms-user-select: none;
+				-webkit-user-drag: none;
+			}
+
+			#content-wrapper{
+				vertical-align: top;
+				white-space: nowrap;
+				@apply(--layout-horizontal);
+				@apply(--layout-flex);
+			}
+
+			#content-wrapper ::content > .paper-slide{
+				margin-right: 8px;
+				vertical-align: top;
+				cursor: pointer;
+				min-width: var(--paper-slide-width);
+				min-height: var(--paper-slide-height);
+
+				@apply(--shadow-elevation-2dp);
+			}
+
+			#content-wrapper ::content > .paper-slide:hover{
+				@apply(--shadow-elevation-4dp);
+			}
+
+			paper-fab.left{
+				left: -16px;
+			}
+
+			paper-fab.right{
+				right: -16px;
+			}
+
+			paper-fab{
+				visibility: hidden;
+				margin-top: -16px;
+				opacity: 0;
+				position: absolute;
+				display: block;
+				top: 50%;
+				z-index: 1;
+				transition: opacity .28s cubic-bezier(.4,0,1,1), visibility 0s .28s;
+				-moz-transition: opacity .28s cubic-bezier(.4,0,1,1), visibility 0s .28s;
+				-o-transition: opacity .28s cubic-bezier(.4,0,1,1), visibility 0s .28s;
+				-webkit-transition: opacity .28s cubic-bezier(.4,0,1,1), visibility 0s .28s;
+				-moz-user-select: none;
+				-o-user-select: none;
+				-ms-user-select: none;
+				-webkit-user-select: none;
+
+				--paper-fab-background: white;
+				color: var(--paper-grey-900);
+			}
+
+
+		</style>
+		<div role="list">
+			<div id="content-wrapper">
+				<content select=".paper-slide"></content>
+			</div>
+		</div>
+		<paper-fab id="leftButton" mini class="left" icon="chevron-left" on-tap="_slideLeft">
+		</paper-fab>
+		<paper-fab id="rightButton" mini class="right" icon="chevron-right" on-tap="_slideRight">
+		</paper-fab>
+	</template>
+
+	<script>
+		Polymer({
+
+			is: 'paper-slider',
+
+			behaviors:[Polymer.NeonAnimationRunnerBehavior],
+
+			listeners:{
+				'mouseenter': '_onMouseEnter',
+				'mouseleave': '_onMouseLeave',
+				'neon-animation-finish': '_onNeonAnimationFinish',
+				'position-x-changed': '_onSliderMove'
+			},
+			/**
+			 * Fired when a mouse enter or leave.
+			 * detail.type, detail.mousePosition
+			 *
+			 * @event slider-controls-toggle
+			 */
+			properties:{
+				/*
+				 * Position of the slider
+				 */
+				positionX:{
+					type: Number,
+					value: 0,
+					readOnly: true,
+					notify: true
+				},
+				/*
+				 * the slider's max width
+				 */
+				limit:{
+					type: Number,
+					readOnly: true,
+					notify: true
+				},
+				/*
+				 * the slide's width
+				 */
+				slideWidth:{
+					type: Number,
+					readOnly: true
+				},
+
+				/*
+				 * Duration of the animation
+				 */
+				duration:{
+					type: Number,
+					value: 280
+				},
+
+				/*
+				 * Set this if you want the controls always visible
+				 */
+				controlsAlwaysVisible:{
+					type: Boolean,
+					value: function(){
+						return false;/*(('ontouchstart' in window)
+							|| (navigator.MaxTouchPoints > 0)
+							|| (navigator.msMaxTouchPoints > 0));*/
+					},
+					notify: true
+				},
+
+				animationConfig:{
+					type: Object,
+					value: function(){
+						return{
+							'slide-from-right':{
+								name: 'transform-animation',
+								node: this.$['content-wrapper'],
+								timing: {
+									duration: 280,
+									easing: 'cubic-bezier(.4,0,.2,1)'
+								}
+							},
+							'slide-from-left':{
+								name: 'transform-animation',
+								node: this.$['content-wrapper'],
+								timing: {
+									duration: 280,
+									easing: 'cubic-bezier(.4,0,.2,1)'
+								}
+							}
+						}
+					}
+				}
+			},
+
+			attached: function(){
+				this.async(function(){
+					var nodes = Polymer.dom(this.$['content-wrapper']).getEffectiveChildNodes();
+					this._setSlideWidth(nodes[0].offsetWidth);
+					this._setLimit(((nodes.length * this.slideWidth) + (nodes.length * 8)) * -1);
+				}.bind(this));
+
+				this.animationConfig['slide-from-left'].timing.duration = this.duration;
+				this.animationConfig['slide-from-right'].timing.duration = this.duration;
+
+				if(this.controlsAlwaysVisible){
+					this.$.rightButton.style.visibility = 'visible';
+					this.$.rightButton.style.opacity = 1;
+				}
+			},
+			/*
+			 * toggle visibility of the controls. 
+			 */
+			toggleControls: function(show){
+				if(!show && this.controlsAlwaysVisible) return;
+				if(show && this.positionX < 0){
+					this.$.leftButton.style.visibility = 'visible';
+					this.$.leftButton.style.opacity = 1;
+				}else{
+					this.$.leftButton.style.visibility = 'hidden';
+					this.$.leftButton.style.opacity = 0;
+				}
+
+				if(show && this.positionX > this.limit + this.slideWidth){
+					this.$.rightButton.style.visibility = 'visible';
+					this.$.rightButton.style.opacity = 1;
+				}else{
+					this.$.rightButton.style.visibility = 'hidden';
+					this.$.rightButton.style.opacity = 0;
+				}
+			},
+
+			_slideLeft: function(){
+				var x = this.positionX + this.$['content-wrapper'].offsetWidth;
+				if(x <= 0){
+					this.animationConfig['slide-from-left'].transformTo = 'translateX(' + x + 'px)';
+					this.animationConfig['slide-from-left'].transformFrom = 'translateX(' + this.positionX + 'px)';
+					this._setPositionX(x);
+					this.playAnimation('slide-from-left');
+				}
+			},
+
+			_slideRight: function(){
+				var x = this.positionX - this.$['content-wrapper'].offsetWidth;
+				if(x >= this.limit){
+					
+					this.animationConfig['slide-from-right'].transformTo = 'translateX(' + x + 'px)';
+					this.animationConfig['slide-from-right'].transformFrom = 'translateX(' + this.positionX + 'px)';
+					this._setPositionX(x);
+					this.playAnimation('slide-from-right');
+				}
+			},
+
+			_onNeonAnimationFinish: function(event, detail){
+				this.$['content-wrapper'].style.transform = 'translateX(' + this.positionX +'px)';
+			},
+
+			_onMouseLeave: function(event){
+				this.fire('slider-controls-toggle', {
+					'type': event.type, 'mousePosition': {x: event.x, y: event.y}
+					}
+				);
+				this.toggleControls(false);
+			},
+
+			_onMouseEnter: function(event){
+				this.fire('slider-controls-toggle', {
+					'type': event.type, 'mousePosition': {x: event.x, y: event.y}
+					}
+				);
+				this.toggleControls(true);
+			},
+
+			_onSliderMove: function(event){
+				this.toggleControls(true);
+			}
+		});
+	</script>
+</dom-module>
+
+
