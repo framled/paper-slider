@@ -14,16 +14,20 @@ You can see a demo [here](https://framled.github.io/slider-carousel/components/s
 
 A simple carousel with controls appear when you needit
 
-`<simple-carousel>
+```html
+<simple-carousel>
 	<div class="slide-carousel"></div>
 	<div class="slide-carousel"></div>
 	<div class="slide-carousel"></div>
-</slider-carousel>`
+</slider-carousel>
+```
 
 or you can use the controlsAlwaysVisible properties for alwas show controls
 
-`<simple-carousel controls-always-visible>
+```html
+<simple-carousel controls-always-visible>
 	<div class="slide-carousel"></div>
 	<div class="slide-carousel"></div>
 	<div class="slide-carousel"></div>
-</slider-carousel>`
+</slider-carousel>
+```
