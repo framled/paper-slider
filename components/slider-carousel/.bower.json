@@ -1,0 +1,33 @@
+{
+  "name": "slider-carousel",
+  "main": "slider-carousel.html",
+  "keywords": [
+    "web-components",
+    "web-component",
+    "polymer",
+    "web-animations",
+    "slider"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.4.0",
+    "neon-animation": "PolymerElements/neon-animation#^1.2.4",
+    "paper-fab": "PolymerElements/paper-fab#^1.2.1"
+  },
+  "devDependencies": {
+    "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
+    "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^1.0.0",
+    "web-component-tester": "^4.0.0",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0"
+  },
+  "homepage": "https://github.com/framled/slider-carousel",
+  "_release": "4dbad7a426",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "4dbad7a426fd2ea97691fa8181a7277a2abecaf7"
+  },
+  "_source": "https://github.com/framled/slider-carousel.git",
+  "_target": "master",
+  "_originalSource": "framled/slider-carousel",
+  "_direct": true
+}
