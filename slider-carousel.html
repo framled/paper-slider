@@ -6,7 +6,6 @@
 <link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../iron-icons/iron-icons.html">
 
-<link rel="import" href="../paper-styles/shadow.html">
 <link rel="import" href="../paper-styles/color.html">
 <link rel="import" href="../paper-fab/paper-fab.html">
 
@@ -21,6 +20,8 @@ Custom property | Description | Default
 ----------------|-------------|----------
 `--slide-carousel-width` | The slide's width | `null`
 `--slide-carousel-height` | The slide's height | `null`
+`--slide-carousel` | The slide's style | `null`
+`--slide-carousel-hover` | The slide's style when hover | `null`
 
 @demo demo/index.html 
 -->
@@ -57,12 +58,12 @@ Custom property | Description | Default
 				cursor: pointer;
 				min-width: var(--slide-carousel-width);
 				min-height: var(--slide-carousel-height);
-
-				@apply(--shadow-elevation-2dp);
+				
+				@apply(--slide-carousel);
 			}
 
 			#content-wrapper ::content > .slide-carousel:hover{
-				@apply(--shadow-elevation-4dp);
+				@apply(--slide-carousel-hover);
 			}
 
 			paper-fab.left{

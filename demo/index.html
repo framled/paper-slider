@@ -10,13 +10,23 @@
 
     <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
     <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+    <link rel="import" href="../../paper-styles/shadow.html">
     <link rel="import" href="../slider-carousel.html">
+
 
     <style is="custom-style" include="demo-pages-shared-styles">
 
       slider-carousel{
         --slide-carousel-width: 200px;
         --slide-carousel-height: 100px;
+
+        --slide-carousel:{
+          @apply(--shadow-elevation-2dp);
+        };
+
+        --slide-carousel-hover:{
+          @apply(--shadow-elevation-4dp);
+        };
       }
 
       .orange{
@@ -37,6 +47,20 @@
       <h3>Basic slider-carousel demo</h3>
       <demo-snippet>
         <template>
+          <style is="custom-style" include="demo-pages-shared-styles">
+            slider-carousel{
+              --slide-carousel-width: 200px;
+              --slide-carousel-height: 100px;
+
+              --slide-carousel:{
+                @apply(--shadow-elevation-2dp);
+              };
+
+              --slide-carousel-hover:{
+                @apply(--shadow-elevation-4dp);
+              };
+            }
+          </style>
           <slider-carousel>
             <div class="slide-carousel blue"></div>
             <div class="slide-carousel orange"></div>
