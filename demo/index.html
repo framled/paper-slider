@@ -13,37 +13,42 @@
     <link rel="import" href="../../paper-styles/shadow.html">
     <link rel="import" href="../slider-carousel.html">
 
+    <custom-style>
+      <style is="custom-style" include="demo-pages-shared-styles">
 
-    <style is="custom-style" include="demo-pages-shared-styles">
+        slider-carousel{
+          --slide-carousel-width: 200px;
+          --slide-carousel-height: 100px;
 
-      slider-carousel{
-        --slide-carousel-width: 200px;
-        --slide-carousel-height: 100px;
+          --slide-carousel:{
+            @apply --shadow-elevation-2dp;
+          };
 
-        --slide-carousel:{
-          @apply(--shadow-elevation-2dp);
-        };
+          --slide-carousel-hover:{
+            @apply --shadow-elevation-4dp;
+          };
+        }
 
-        --slide-carousel-hover:{
-          @apply(--shadow-elevation-4dp);
-        };
-      }
+        .orange{
+          background-color: orange;
+        }
 
-      .orange{
-        background-color: orange;
-      }
+        .blue{
+          background-color: blue;
+        }
 
-      .blue{
-        background-color: blue;
-      }
-
-      .teal{
-        background-color: teal;
-      }
-    </style>
+        .teal{
+          background-color: teal;
+        }
+        div{
+          width: 50%;
+          margin: auto;
+        }
+      </style>
+    </custom-style>
   </head>
   <body>
-    <div class="vertical-section-container centered">
+    <div class="vertical-section-container layout horizontal centered-centered">
       <h3>Basic slider-carousel demo</h3>
       <demo-snippet>
         <template>
@@ -62,19 +67,19 @@
             }
           </style>
           <slider-carousel>
-            <div class="slide-carousel blue"></div>
-            <div class="slide-carousel orange"></div>
-            <div class="slide-carousel teal"></div>
-            <div class="slide-carousel blue"></div>
-            <div class="slide-carousel orange"></div>
-            <div class="slide-carousel teal"></div>
-            <div class="slide-carousel blue"></div>
-            <div class="slide-carousel orange"></div>
-            <div class="slide-carousel teal"></div>
-            <div class="slide-carousel blue"></div>
-            <div class="slide-carousel orange"></div>
-            <div class="slide-carousel teal"></div>
-            <div class="slide-carousel orange"></div>
+            <div slot="slide-carousel" class="blue"></div>
+            <div slot="slide-carousel" class="orange"></div>
+            <div slot="slide-carousel" class="teal"></div>
+            <div slot="slide-carousel" class="blue"></div>
+            <div slot="slide-carousel" class="orange"></div>
+            <div slot="slide-carousel" class="teal"></div>
+            <div slot="slide-carousel" class="blue"></div>
+            <div slot="slide-carousel" class="orange"></div>
+            <div slot="slide-carousel" class="teal"></div>
+            <div slot="slide-carousel" class="blue"></div>
+            <div slot="slide-carousel" class="orange"></div>
+            <div slot="slide-carousel" class="teal"></div>
+            <div slot="slide-carousel" class="orange"></div>
           </slider-carousel>
         </template>
       </demo-snippet>
@@ -83,19 +88,19 @@
       <demo-snippet>
         <template>
           <slider-carousel controls-always-visible>
-            <div class="slide-carousel blue"></div>
-            <div class="slide-carousel orange"></div>
-            <div class="slide-carousel teal"></div>
-            <div class="slide-carousel blue"></div>
-            <div class="slide-carousel orange"></div>
-            <div class="slide-carousel teal"></div>
-            <div class="slide-carousel blue"></div>
-            <div class="slide-carousel orange"></div>
-            <div class="slide-carousel teal"></div>
-            <div class="slide-carousel blue"></div>
-            <div class="slide-carousel orange"></div>
-            <div class="slide-carousel teal"></div>
-            <div class="slide-carousel orange"></div>
+            <div slot="slide-carousel" class="blue"></div>
+            <div slot="slide-carousel" class="orange"></div>
+            <div slot="slide-carousel" class="teal"></div>
+            <div slot="slide-carousel" class="blue"></div>
+            <div slot="slide-carousel" class="orange"></div>
+            <div slot="slide-carousel" class="teal"></div>
+            <div slot="slide-carousel" class="blue"></div>
+            <div slot="slide-carousel" class="orange"></div>
+            <div slot="slide-carousel" class="teal"></div>
+            <div slot="slide-carousel" class="blue"></div>
+            <div slot="slide-carousel" class="orange"></div>
+            <div slot="slide-carousel" class="teal"></div>
+            <div slot="slide-carousel" class="orange"></div>
           </slider-carousel>
         </template>
       </demo-snippet>
